@@ -1,7 +1,16 @@
-import { useState } from "react";
 import Controle from "../../core/controle/Controle"
 import { IconeEdicao, IconeDeletar } from "../Icones"
 import QRCode from "react-qr-code";
+import "../../styles/TabelaQrcode.module.css"
+import styled from "styled-components";
+
+// Estilização do componente
+const Baia = styled.p`
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@600&display=swap');
+    font-family: 'Roboto Mono', monospace;
+    font-size: 25px;
+    color: black;
+`
 
 interface TabelaProps {
     controles: Controle[]
@@ -17,20 +26,20 @@ export default function Tabela(props: TabelaProps) {
 
     function url() {
 
-        return 'http://suportegpd'
+        return 'Link: http://suportegpd/'
 
     }
 
     function codigo(controle: Controle) {
         
         if (controle.id < '10') {
-            return `Cód.: 00${controle.id}`
+            return `Código: 00${controle.id}`
         }
         else if (controle.id < '100') {
-            return `Cód.: 0${controle.id}`
+            return `Código: 0${controle.id}`
         }
         else {
-            return `Cód.: ${controle.id}`
+            return `Código: ${controle.id}`
         }
 
     }
@@ -40,10 +49,6 @@ export default function Tabela(props: TabelaProps) {
         return `${controle.baia}`
 
     }
-
-    const exibirAcoes = props.controleSelecionado || props.controleDeletado || props.qrCode
-
-    // Renderiza o cabelcaho nas pagina onde ele é controle
 
     // Renderiza os dados do controle no tabela e formulario
     function renderizarDados() {
@@ -61,7 +66,7 @@ export default function Tabela(props: TabelaProps) {
 
                     return (
                         <tr key={controle.id}>
-                            <td style={{display: "flex", justifyContent: "space-between"}}>
+                            <td style={{display: "flex", justifyContent: "space-around", alignItems: "center"}}>
                                 <td>
                                     <QRCode
                                         style={{ margin: "5px", height: "75px", width: "75px" }}
@@ -72,22 +77,22 @@ export default function Tabela(props: TabelaProps) {
                                         }
                                     />
                                 </td>
-                                <td style={{ paddingLeft: "50px" }}>
+                                <td style={{ paddingLeft: "50px", color: "black" }}>
                                     <tr>
                                         <p className="p-30">  {url()}  </p>
                                     </tr>
                                     <tr>
-                                        <p className="p-30">  {codigo(controle)}  </p>
+                                        <strong><p className="p-30">  {codigo(controle)}  </p></strong>
                                     </tr>
                                 </td>
                                 <td>
-                                    <p style={{ fontSize: "25px" }}>
+                                    <Baia>
                                         <center>
                                             <strong>
                                                 {baia(controle)}
                                             </strong>
                                         </center>
-                                    </p>
+                                    </Baia>
                                 </td>
                             </td>
                         </tr>
@@ -96,54 +101,6 @@ export default function Tabela(props: TabelaProps) {
 
             }
         })
-    }
-
-
-
-    // Renderiza os botoes editar e finalizar na tabela de controles
-    function renderizarAcoes(controle: Controle) {
-
-        return (
-            <div>
-                <td className="flex justify-center">
-                    {props.controleSelecionado ? (
-                        <button onClick={() => props.controleSelecionado?.(controle)} className={`
-                        flex justify-center items-center
-                        text-green-600 rounded-full p-2 m-1
-                        hover:bg-purple-50
-                    `}>
-                            {IconeEdicao}
-                            <>Editar</>
-                        </button>
-                    ) : false
-                    }
-
-                    {props.controleDeletado ? (
-                        <button onClick={() => props.controleDeletado?.(controle)} className={`
-                        flex justify-center items-center
-                        text-red-600 rounded-full p-2 m-1
-                        hover:bg-purple-50
-                    `}>
-                            {IconeDeletar}
-                            <>Deletar</>
-                        </button>
-                    ) : false
-                    }
-                    {props.qrCode ? (
-                        <button onClick={() => props.qrCode?.(controle)} className={`
-                        flex justify-center items-center
-                        text-blue-600 rounded-full p-2 m-1
-                        hover:bg-purple-50
-                    `}>
-
-                            <>QRCODE</>
-                        </button>
-                    ) : false}
-
-                </td>
-
-            </div>
-        )
     }
 
     return (

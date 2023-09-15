@@ -31,6 +31,7 @@
     "request": "^2.79.0",
     "rn-nodeify": "^10.3.0",
     "sequelize": "^6.21.0",
+    "styled-components": "^6.0.8",
     "usehooks-ts": "^2.6.0"
   },
   "devDependencies": {

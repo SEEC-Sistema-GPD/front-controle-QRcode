@@ -11,6 +11,12 @@ module.exports = {
     'lg:text-4xl',
   ],
 
+  theme: {
+    fontFamily: {
+      'mono': ['Roboto Mono', 'sans-serif']
+  }
+  },
+
 darkMode:'media',
 theme: {
   extend: {},

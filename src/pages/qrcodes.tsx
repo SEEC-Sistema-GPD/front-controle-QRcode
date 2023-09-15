@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 import Botao from "../components/Botao";
 import Formulario from "../components/controle/Formulario"
-import Layout from "../components/Layout";
-import Tabela from "../components/controle/Tabela";
 import Controle from "../core/controle/Controle";
 import ControleRepositorio from "../core/controle/ControleRepositorio";
 import ColecaoControle from "../backend/db/ColecaoControle";
-import Deslogar from "../components/Deslogar";
-import { Row } from "react-bootstrap";
-
-import Router from "next/router";
-
-import Rota from "../components/Rota";
 import Modal from "../components/modal/Modal";
 import TabelaQrcode from "../components/controle/TabelaQrcode";
 
@@ -80,7 +72,7 @@ export default function Home() {
     bg-gradient-to-r from-slate-400 to-slate-500 text-neutral-50
     `}>
         {valor === 'qrcode' ? (
-          <Layout >
+          < >
             <Botao className="bg-blue-800 mb-5 m-8"
               onClick={obterTodosContoles}>
               voltar
@@ -90,29 +82,16 @@ export default function Home() {
             />
             <br />
 
-          </Layout>
+          </>
 
-        ) : (<Layout titulo="Controle">
+        ) : (<>
 
           {visivel === 'tabela' ? (
-            <>
-              <div className="flex justify-end">
-                <Row>
-                  <Rota rota="home">Home</Rota>
-                  <Botao className="bg-red-800 mb-3 m-2"
-                    onClick={Deslogar}>
-                    Sair
-                  </Botao>
-                </Row>
-              </div>
-
-
-              <TabelaQrcode controles={controles}
-                controleSelecionado={controleSelecionado}
-                controleDeletado={controleDeletado}
-                qrCode={qrCode}
-              />
-            </>
+            <TabelaQrcode controles={controles}
+              controleSelecionado={controleSelecionado}
+              controleDeletado={controleDeletado}
+              qrCode={qrCode}
+            />
           ) : (
 
             <Formulario
@@ -122,7 +101,7 @@ export default function Home() {
 
             />
           )}
-        </Layout>)}
+        </>)}
 
       </div>
     </>
