@@ -15,17 +15,29 @@ interface TabelaProps {
 // Componente que criar o modelo de tabela
 export default function Tabela(props: TabelaProps) {
 
-    function url(controle: Controle) {
+    function url() {
 
-        return `Link: 10.26.0.51  |  Cód.: ${controle.id}`
+        return 'http://suportegpd'
 
+    }
+
+    function codigo(controle: Controle) {
+        
+        if (controle.id < '10') {
+            return `Cód.: 00${controle.id}`
+        }
+        else if (controle.id < '100') {
+            return `Cód.: 0${controle.id}`
+        }
+        else {
+            return `Cód.: ${controle.id}`
+        }
 
     }
 
     function baia(controle: Controle) {
 
         return `${controle.baia}`
-
 
     }
 
@@ -39,92 +51,36 @@ export default function Tabela(props: TabelaProps) {
 
         return props.controles?.map((controle, i) => {
 
-            let controle2 = (props.controles[i + 1])
+            let controle2 = (props.controles[i])
 
             if (controle2) {
 
-                if (parseInt(controle.id) % 2 === 0 && parseInt(controle2.id) % 2 !== 0) {
+                if (parseInt(controle.id)) {
 
                     valor++
 
                     return (
-                        <tr key={controle.id} className={`flex-wrap ${valor % 2 === 0 ? 'bg-gray-300' : 'bg-gray-400'}`}>
-                            <td>
-
-                                <td style={{ borderRight: "1px solid black" }}>
+                        <tr key={controle.id}>
+                            <td style={{display: "flex", justifyContent: "space-between"}}>
+                                <td>
                                     <QRCode
                                         style={{ margin: "5px", height: "75px", width: "75px" }}
-                                        value= {
-                                            parseInt(controle.id) % 2 === 0
-                                            ? 'http://10.26.0.51?parametro=' + controle.id
-                                            : null
+                                        value={
+                                            parseInt(controle.id)
+                                                ? 'http://suportegpd?parametro=' + controle.id
+                                                : null
                                         }
                                     />
                                 </td>
                                 <td style={{ paddingLeft: "50px" }}>
                                     <tr>
-                                        <p className="p-30">  {url(controle)}  </p>
+                                        <p className="p-30">  {url()}  </p>
                                     </tr>
-                                    <tr style={{ borderTop: "1px solid black" }}>
-                                        <p style={{ fontSize: "25px" }}>
-                                            <center>
-                                                <strong>
-                                                    {baia(controle)}
-                                                </strong>
-                                            </center>
-                                        </p>
-                                    </tr>
-                                </td>
-                            </td>
-                            <td>
-                                <td style={{ borderRight: "1px solid black" }}>
-                                    <QRCode
-                                        style={{ margin: "5px", height: "75px", width: "75px" }}
-                                        value={
-                                            parseInt(controle.id) % 2 === 0
-                                            ? 'http://10.26.0.51?parametro=' + Number(controle.id + 1)
-                                            : null
-                                        }
-                                    />
-                                </td>
-                                <td style={{ paddingLeft: "10px" }}>
                                     <tr>
-                                        <p>{url(controle2)}</p>
-                                    </tr>
-                                    <tr style={{ borderTop: "1px solid black" }}>
-                                        <p style={{ fontSize: "25px" }}>
-                                            <center>
-                                                <strong>
-                                                    {baia(controle2)}
-                                                </strong>
-                                            </center>
-                                        </p>
+                                        <p className="p-30">  {codigo(controle)}  </p>
                                     </tr>
                                 </td>
-                            </td>
-                        </tr>
-                    )
-
-                }
-
-            }
-
-            if (parseInt(controle.id) === 1) {
-                return (
-                    <tr key={controle.id} className={`flex-wrap ${valor % 2 !== 0 ? 'bg-gray-300' : 'bg-gray-400'}`}>
-                        <td>
-
-                            <td style={{ borderRight: "1px solid black" }}>
-                                <QRCode
-                                    style={{ margin: "5px", height: "75px", width: "75px" }}
-                                    value={`flex-wrap' : '${parseInt(controle.id) % 2 !== 0 ? process.env.NEXT_PUBLIC_URL_FRONTEND + '?parametro' + controle.id : false}`}
-                                />
-                            </td>
-                            <td style={{ paddingLeft: "50px" }}>
-                                <tr>
-                                    <p className="p-30">  {url(controle)}  </p>
-                                </tr>
-                                <tr style={{ borderTop: "1px solid black" }}>
+                                <td>
                                     <p style={{ fontSize: "25px" }}>
                                         <center>
                                             <strong>
@@ -132,19 +88,13 @@ export default function Tabela(props: TabelaProps) {
                                             </strong>
                                         </center>
                                     </p>
-                                </tr>
+                                </td>
                             </td>
-                        </td>
-                        <td>
-
-
-                        </td>
-                    </tr>
-                )
-
+                        </tr>
+                    )
+                }
 
             }
-
         })
     }
 
