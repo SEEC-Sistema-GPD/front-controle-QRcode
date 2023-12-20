@@ -18,6 +18,7 @@ export default function Tabela(props: TabelaProps) {
     function renderizarCabecalho() {
         return (
             <tr className="flex-wrap">
+                 <th className="text-left p-1 text-xs">Código</th>
                 <th className="text-left p-1 text-xs">Setor</th>
                 <th className="text-left p-1 text-xs">SubSetor</th>
                 <th className="text-left p-1 text-xs">Ilha</th>
@@ -43,6 +44,7 @@ export default function Tabela(props: TabelaProps) {
         return props.controles?.map((controle, i) => {
             return (
                 <tr key={controle.id} className={`flex-wrap ${i % 2 === 0 ? 'bg-gray-300' : 'bg-gray-400'}`}>
+                    <td className="text-left p-1 text-xs">{controle.id}</td>
                     <td className="text-left p-1 text-xs">{controle.setor}</td>
                     <td className="text-left p-1 text-xs">{controle.subsetor}</td>
                     <td className="text-left p-1 text-xs">{controle.ilha}</td>
