@@ -24,10 +24,10 @@ export default function Home() {
   // Metodo que exibe na tabela todos os controles existentes
   function obterTodosContoles() {
     repo.obterTodosControles().then(controles => {
+      controles.sort((a, b) => Number(a.id) - Number(b.id)); // Ordena os controles em ordem crescente de id
       setControles(controles)
       setValor('false')
       setVisivel('tabela')
-
     })
   }
 

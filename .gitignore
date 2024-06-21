@@ -3,9 +3,9 @@ node_modules/
 
 # Build folder
 build/
-
 out
 .next
+out-controle
 
 # VSCode
 .vscode/

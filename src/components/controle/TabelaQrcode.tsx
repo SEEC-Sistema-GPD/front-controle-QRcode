@@ -26,7 +26,7 @@ export default function Tabela(props: TabelaProps) {
 
     function url() {
 
-        return 'Link: http://suportegpd/'
+        return `Link: ${process.env.NEXT_PUBLIC_URL_FRONTEND}`
 
     }
 
@@ -52,56 +52,44 @@ export default function Tabela(props: TabelaProps) {
 
     // Renderiza os dados do controle no tabela e formulario
     function renderizarDados() {
-        let valor = 0
+    let valor = 0
 
-        return props.controles?.map((controle, i) => {
+    return props.controles?.map((controle, i) => {
+        let controle2 = (props.controles[i])
 
-            let controle2 = (props.controles[i])
+        if (controle2) {
+            if (parseInt(controle.id)) {
+                valor++
 
-            if (controle2) {
-
-                if (parseInt(controle.id)) {
-
-                    valor++
-
-                    return (
-                        <tr key={controle.id}>
-                            <td style={{display: "flex", justifyContent: "space-around", alignItems: "center"}}>
-                                <td>
-                                    <QRCode
-                                        style={{ margin: "5px", height: "75px", width: "75px" }}
-                                        value={
-                                            parseInt(controle.id)
-                                                ? 'http://suportegpd?parametro=' + controle.id
-                                                : null
-                                        }
-                                    />
-                                </td>
-                                <td style={{ paddingLeft: "50px", color: "black" }}>
-                                    <tr>
-                                        <p className="p-30">  {url()}  </p>
-                                    </tr>
-                                    <tr>
-                                        <strong><p className="p-30">  {codigo(controle)}  </p></strong>
-                                    </tr>
-                                </td>
-                                <td>
-                                    <Baia>
-                                        <center>
-                                            <strong>
-                                                {baia(controle)}
-                                            </strong>
-                                        </center>
-                                    </Baia>
-                                </td>
-                            </td>
-                        </tr>
-                    )
-                }
-
+                return (
+                    <tr key={controle.id}>
+                        <td style={{display: "flex", justifyContent: "space-around", alignItems: "center"}}>
+                            <QRCode
+                                style={{ margin: "5px", height: "75px", width: "75px" }}
+                                value={
+                                    parseInt(controle.id)
+                                        ? `${process.env.NEXT_PUBLIC_URL_FRONTEND}?parametro=${controle.id}`
+                                        : null
+                                }
+                            />
+                            <div style={{ paddingLeft: "50px", color: "black" }}>
+                                <p className="p-30">  {url()}  </p>
+                                <strong><p className="p-30">  {codigo(controle)}  </p></strong>
+                            </div>
+                            <Baia>
+                                <center>
+                                    <strong>
+                                        {baia(controle)}
+                                    </strong>
+                                </center>
+                            </Baia>
+                        </td>
+                    </tr>
+                )
             }
-        })
-    }
+        }
+    })
+}
 
     return (
         <table className="w-full">
